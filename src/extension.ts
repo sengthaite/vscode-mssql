@@ -17,6 +17,7 @@ import SqlToolsServerClient from './languageservice/serviceclient';
 import { ConnectionProfile } from './models/connectionProfile';
 import { FirewallRuleError } from './languageservice/interfaces';
 import { RequestType } from 'vscode-languageclient';
+import { QueryResultProvider } from './queryResult/queryResultProvider';
 
 let controller: MainController = undefined;
 
@@ -24,6 +25,11 @@ export async function activate(context: vscode.ExtensionContext): Promise<IExten
 	let vscodeWrapper = new VscodeWrapper();
 	controller = new MainController(context, undefined, vscodeWrapper);
 	context.subscriptions.push(controller);
+
+	// Register web view in panel : SQL Result
+	this._queryResultProvider = new QueryResultProvider(context.extensionUri)
+	context.subscriptions.push(
+			vscode.window.registerWebviewViewProvider(QueryResultProvider.viewType, this._queryResultProvider));
 
 	// Checking if localization should be applied
 	let config = vscodeWrapper.getConfiguration(Constants.extensionConfigSectionName);

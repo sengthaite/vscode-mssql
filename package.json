@@ -157,7 +157,14 @@
           "title": "SQL Server",
           "icon": "./images/server_page_inverse.svg"
         }
-      ]
+      ],
+      "panel": [
+				{
+					"title": "SQL Result",
+					"id": "objectResult",
+					"icon": ""
+				}
+			]
     },
     "views": {
       "objectExplorer": [
@@ -170,6 +177,13 @@
           "name": "%extension.queryHistory%",
           "when": "config.mssql.enableQueryHistoryFeature"
         }
+      ],
+      "objectResult": [
+        {
+					"type": "webview",
+					"id": "objectResult",
+					"name": "SQL Result"
+				}
       ]
     },
     "languages": [
